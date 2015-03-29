@@ -30,11 +30,11 @@ if quote:
   change = float(quote.get('Change', 0))
   if change > 0:
     for light in lights:
-      light.color = (0, 255, 0, 255)
+      light.color = (0, 255, 0)
   elif change < 0:
     for light in lights:
-      light.color = (255, 0, 0, 255)
+      light.color = (255, 0, 0)
   else:
     for light in lights:
-      light.color = (255, 255, 255, 255)
+      light.color = (255, 255, 255)
 

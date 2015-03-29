@@ -12,38 +12,25 @@ for light in lights:
   # Setting brightness and color independently
 
   light.color = (255, 0, 0)
-  light.brightness = 255
-
-  sleep(1)
-
-  light.color = (0, 255, 0)
-  light.brightness = 127
 
   sleep(1)
 
   # You can use hex strings too
 
   light.color = '#0000FF'
-  light.brightness = 255
 
   sleep(1)
 
-  # Or RGBA strings
+  # Color slide
 
-  light.color = '#0080CC80'
-
-  sleep(1)
-
-  # Setting brightness and color together
-
-  light.color = (255, 255, 255, 0)
-  for i in range(1, 100):
-    light.color = (255, 255, 255, i)
+  for i in range(0, 255):
+    light.color = (255-i, i, 0)
     sleep(0.01)
 
   sleep(1)
 
   # White light mode
-  light.color = (0, 0, 0, 255)
-
+  for i in range(0, 255):
+    light.brightness = i
+    sleep(0.01)
 

@@ -19,13 +19,8 @@ lights = b.get_lights()
 
 for light in lights:
 
-  # set color and brightness together with an RGBA tuple
-  light.color = (255, 0, 0, 255)
-
-  sleep(1)
-
-  # set color only with an RGB tuple
-  light.color = (0, 255, 0)
+  # set color with RGB tuple
+  light.color = (255, 0, 0)
 
   sleep(1)
 
@@ -34,14 +29,13 @@ for light in lights:
 
   sleep(1)
 
-  # set brightness only
+  # use brightness to switch the light to white mode
 
   light.brightness = 127
 
   sleep(1)
 
-  # use (0, 0, 0) for white light setting
-  light.color = (0, 0, 0, 255)
+  light.brightness = 255
 ```
 
 # More advanced examples
@@ -50,3 +44,4 @@ for light in lights:
 *sample-stock.py* changes the color of the light bulb based on the price of Google stock
 
 *sample-audio.py* is a crude audio analyzer using pyaudio.
+

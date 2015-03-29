@@ -68,6 +68,7 @@ class Light:
 
     self.__color = (255, 255, 255)
     self.__brightness = 255
+    self.__mode = 8
     self.__params = params
 
   @property
@@ -76,15 +77,13 @@ class Light:
 
   @color.setter
   def color(self, color):
-    if type(color) is str and color[0]=='#' and (len(color)==7 or len(color)==9):
+    self.__mode = 9 # color mode
+    if type(color) is str and color[0]=='#' and len(color)==7:
       self.color = binascii.unhexlify(color[1:])
-
-    if len(color) == 4:
-      self.__color = (color[0], color[1], color[2])
-      self.__brightness = color[3]
-      self.update()
-    elif len(color) == 3:
+      self.__brightness = 255
+    else:
       self.__color = color
+      self.__brightness = 255
       self.update()
 
   @property
@@ -93,6 +92,8 @@ class Light:
 
   @brightness.setter
   def brightness(self, brightness):
+    self.__mode = 8 # white mode
+    self.__color = (255, 255, 255)
     self.__brightness = brightness
     self.update()
 
@@ -103,14 +104,11 @@ class Light:
       "g": self.__color[1],
       "b": self.__color[2],
       "bright": int(100.0*self.__brightness/255),
-      "effect": "9",
+      "effect": self.__mode,
       "iswitch": "0" if self.__brightness == 0 else "1",
       "matchValue": "0",
       "sn_list": [ { "sn": self.__params['sn'] } ],
     }
-
-    if cmd['r'] == 0 and cmd['g'] == 0 and cmd['b'] == 0:
-      cmd['effect'] = "8"
 
     if "ok" not in self.belleds_device.dispatch_cmd(cmd):
       raise ConnectionError("light control unsuccessful")
