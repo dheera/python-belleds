@@ -28,8 +28,8 @@ def get_quote(ticker_symbol):
 while True:
   quote = get_quote("GOOG")
   if quote:
-    price = float(quote.get('LastTradePriceOnly'))
-    change = float(quote.get('Change'))
+    price = float(quote.get('LastTradePriceOnly', 0))
+    change = float(quote.get('Change', 0))
     if change > 0:
       for light in lights:
         light.set(color = (0, 255, 0), brightness = 100)
