@@ -4,7 +4,10 @@
 # Tested on firmware rev. mb8800_v1.0.0_r389
 # (http://belleds.com/en/download.html)
 
+# By Dheera Venkatraman (http://dheera.net/)
+
 import socket, sys, json, time
+from pprint import pprint
 from requests.exceptions import ConnectionError
 
 class Belleds:
@@ -27,7 +30,7 @@ class Belleds:
 
     try:
       data = json.loads(self.dispatch_cmd(cmd))
-      return [ Light(self, led['sn']) for led in data.get('led',[]) ]
+      return [ Light(self, params = led) for led in data.get('led',[]) ]
 
     except ValueError:
       raise ConnectionError("invalid response returned")
@@ -45,21 +48,30 @@ class Belleds:
 
 class Light:
 
-  def __init__(self, belleds_device, sn):
+  def __init__(self, belleds_device, params = {}):
     self.belleds_device = belleds_device
-    self.sn = sn
+    self.params = params
 
-  def set(self, color = (255,255,255), brightness = 100):
+  def set(self, color = None, brightness = None):
+
+    if color:
+      self.params['r'] = color[0]
+      self.params['g'] = color[1]
+      self.params['b'] = color[2]
+
+    if brightness:
+      self.params['bright'] = brightness
+
     cmd = {
       "cmd":"light_ctrl",
-      "r": int(color[0]),
-      "g": int(color[1]),
-      "b": int(color[2]),
-      "bright": int(brightness),
+      "r": int(self.params.get('r', 255)),
+      "g": int(self.params.get('g', 255)),
+      "b": int(self.params.get('b', 255)),
+      "bright": int(self.params.get('bright', 100)),
       "effect": "9",
-      "iswitch": "1" if brightness > 0 else "0",
+      "iswitch": "0" if int(self.params.get('bright')) == 0 else "1",
       "matchValue": "0",
-      "sn_list": [ { "sn": self.sn } ],
+      "sn_list": [ { "sn": self.params['sn'] } ],
     }
 
     if "ok" not in self.belleds_device.dispatch_cmd(cmd):
