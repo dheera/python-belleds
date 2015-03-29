@@ -9,6 +9,7 @@ Sample usage:
 
 
 ```python
+#!/usr/bin/env python3
 from belleds import Belleds
 from time import sleep
 
