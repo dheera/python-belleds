@@ -20,3 +20,6 @@ for light in lights:
   for i in range(1, 100):
     light.set(brightness = i)
     sleep(0.01)
+
+  sleep(0.5)
+  light.set(color = (0, 0, 0), brightness = 100)

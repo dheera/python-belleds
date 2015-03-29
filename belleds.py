@@ -74,5 +74,8 @@ class Light:
       "sn_list": [ { "sn": self.params['sn'] } ],
     }
 
+    if cmd['r'] == 0 and cmd['g'] == 0 and cmd['b'] == 0:
+      cmd['effect'] = "8"
+
     if "ok" not in self.belleds_device.dispatch_cmd(cmd):
       raise ConnectionError("light control unsuccessful")
