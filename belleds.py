@@ -6,7 +6,7 @@
 
 # By Dheera Venkatraman (http://dheera.net/)
 
-import socket, sys, json, time
+import socket, sys, json, time, binascii
 from pprint import pprint
 from requests.exceptions import ConnectionError
 
@@ -59,7 +59,8 @@ class Light:
 
     # Uncomment if in the future the Belleds device actually reports the
     # state of its parameters via lights_list. For now it reports
-    # r=0 g=0 b=0 bright=0 so we manually initialize to hardcoded values.
+    # r=0 g=0 b=0 bright=0 on startup rather than the actual state
+    # of the system, so for now we manually initialize to hardcoded values.
     # self.__color = (int(params.get('r', 255)),
     #              int(params.get('g', 255)),
     #              int(params.get('b', 255)))
@@ -75,6 +76,9 @@ class Light:
 
   @color.setter
   def color(self, color):
+    if type(color) is str and color[0]=='#' and (len(color)==7 or len(color)==9):
+      self.color = binascii.unhexlify(color[1:])
+
     if len(color) == 4:
       self.__color = (color[0], color[1], color[2])
       self.__brightness = color[3]

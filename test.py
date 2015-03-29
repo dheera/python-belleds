@@ -21,8 +21,16 @@ for light in lights:
 
   sleep(1)
 
-  light.color = (0, 0, 255)
+  # You can use hex strings too
+
+  light.color = '#0000FF'
   light.brightness = 255
+
+  sleep(1)
+
+  # Or RGBA strings
+
+  light.color = '#0080CC80'
 
   sleep(1)
 
