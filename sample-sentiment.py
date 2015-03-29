@@ -6,7 +6,9 @@
 #
 # Example usage:
 # echo "I hate you and I'm having a terrible day" | ./sample-sentiment.py
+# => user is angry, light turns red
 # echo "I love chocolate. So awesome!" | ./sample-sentiment.py
+# => user is happy, light turns green
 
 from belleds import Belleds
 import json
