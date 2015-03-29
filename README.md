@@ -7,7 +7,6 @@ By [Dheera Venkatraman](http://dheera.net) based on documentation from the [Bell
 
 Sample usage:
 
-
 ```python
 #!/usr/bin/env python3
 from belleds import Belleds
@@ -30,3 +29,10 @@ for light in lights:
   # use (0, 0, 0) for white light setting
   light.set(color = (0, 0, 0), brightness = 100)
 ```
+
+# More advanced examples
+*sample-sentiment.py* does natural language processing on a piece of text and changes the light bulb to a color matching the feelings in the text.
+
+*sample-stock.py* changes the color of the light bulb based on the price of Google stock
+
+*sample-audio.py* is a crude audio analyzer using pyaudio.
