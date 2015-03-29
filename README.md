@@ -19,8 +19,13 @@ lights = b.get_lights()
 
 for light in lights:
 
-  # set color with RGB tuple
+  # bright red
   light.color = (255, 0, 0)
+
+  sleep(1)
+
+  # dark green
+  light.color = (0, 127, 0)
 
   sleep(1)
 
