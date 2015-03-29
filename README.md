@@ -19,17 +19,17 @@ lights = b.get_lights()
 
 for light in lights:
 
-  # set color and brightness together
-  light.color = (255, 0, 0, 0)
+  # set color and brightness together with an RGBA tuple
+  light.color = (255, 0, 0, 255)
 
   sleep(1)
 
-  # set color only
+  # set color only with an RGB tuple
   light.color = (0, 255, 0)
 
   sleep(1)
 
-  # use a hex string if you feel like
+  # use hex strings if you feel like
   light.color = '#0080CC'
 
   sleep(1)
