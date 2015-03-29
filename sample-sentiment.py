@@ -32,4 +32,4 @@ g = int(data.get('probability',{}).get('pos',1)*255)
 b = int(data.get('probability',{}).get('neutral',1)*255)
 
 for light in lights:
-  light.set(color = (r, g, b), brightness = 100)
+  light.color = (r, g, b, 255)

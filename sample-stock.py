@@ -24,19 +24,17 @@ def get_quote(ticker_symbol):
     print("Could not retrieve quote")
     return None
   
-while True:
-  quote = get_quote("GOOG")
-  if quote:
-    price = float(quote.get('LastTradePriceOnly', 0))
-    change = float(quote.get('Change', 0))
-    if change > 0:
-      for light in lights:
-        light.set(color = (0, 255, 0), brightness = 100)
-    elif change < 0:
-      for light in lights:
-        light.set(color = (255, 0, 0), brightness = 100)
-    else:
-      for light in lights:
-        light.set(color = (255, 255, 255), brightness = 100)
-  sleep(30)
+quote = get_quote("GOOG")
+if quote:
+  price = float(quote.get('LastTradePriceOnly', 0))
+  change = float(quote.get('Change', 0))
+  if change > 0:
+    for light in lights:
+      light.color = (0, 255, 0, 255)
+  elif change < 0:
+    for light in lights:
+      light.color = (255, 0, 0, 255)
+  else:
+    for light in lights:
+      light.color = (255, 255, 255, 255)
 

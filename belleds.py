@@ -48,30 +48,61 @@ class Belleds:
 
 class Light:
 
+  color = (0,0,0)
+  brightness = 255
+
+  def __repr__(self):
+    return '[Light]'
+
   def __init__(self, belleds_device, params = {}):
     self.belleds_device = belleds_device
-    self.params = params
 
-  def set(self, color = None, brightness = None):
+    # Uncomment if in the future the Belleds device actually reports the
+    # state of its parameters via lights_list. For now it reports
+    # r=0 g=0 b=0 bright=0 so we manually initialize to hardcoded values.
+    # self.__color = (int(params.get('r', 255)),
+    #              int(params.get('g', 255)),
+    #              int(params.get('b', 255)))
+    # self.__brightness = int(params.get('bright', 100)*255.0/100)
 
-    if color:
-      self.params['r'] = color[0]
-      self.params['g'] = color[1]
-      self.params['b'] = color[2]
+    self.__color = (255, 255, 255)
+    self.__brightness = 255
+    self.__params = params
 
-    if brightness:
-      self.params['bright'] = brightness
+  @property
+  def color(self):
+    return self.__color
 
+  @color.setter
+  def color(self, color):
+    if len(color) == 4:
+      self.__color = (color[0], color[1], color[2])
+      self.__brightness = color[3]
+      self.update()
+    elif len(color) == 3:
+      self.__color = color
+      self.update()
+
+  @property
+  def brightness(self):
+    return self.__brightness
+
+  @brightness.setter
+  def brightness(self, brightness):
+    self.__brightness = brightness
+    self.update()
+
+  def update(self):
     cmd = {
       "cmd":"light_ctrl",
-      "r": int(self.params.get('r', 255)),
-      "g": int(self.params.get('g', 255)),
-      "b": int(self.params.get('b', 255)),
-      "bright": int(self.params.get('bright', 100)),
+      "r": self.__color[0],
+      "g": self.__color[1],
+      "b": self.__color[2],
+      "bright": int(100.0*self.__brightness/255),
       "effect": "9",
-      "iswitch": "0" if int(self.params.get('bright')) == 0 else "1",
+      "iswitch": "0" if self.__brightness == 0 else "1",
       "matchValue": "0",
-      "sn_list": [ { "sn": self.params['sn'] } ],
+      "sn_list": [ { "sn": self.__params['sn'] } ],
     }
 
     if cmd['r'] == 0 and cmd['g'] == 0 and cmd['b'] == 0:

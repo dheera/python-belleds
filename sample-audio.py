@@ -85,5 +85,5 @@ while True:
     print(str('=' * int(10*score)) + ' ' * 20, end="\r")
 
     for light in lights:
-      light.set(color = color, brightness = 100)
+      light.color = color
 

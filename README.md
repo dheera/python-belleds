@@ -18,16 +18,25 @@ b.connect('192.168.1.139')
 lights = b.get_lights()
 
 for light in lights:
-  # color tests
-  light.set(color = (255, 0, 0), brightness = 100)
-  sleep(0.25)
-  light.set(color = (0, 255, 0))
-  sleep(0.25)
-  light.set(color = (0, 0, 255), brightness = 50)
-  sleep(0.25)
+
+  # set color and brightness together
+  light.color = (255, 0, 0, 0)
+
+  sleep(1)
+
+  # set color only
+  light.color = (0, 255, 0)
+
+  sleep(1)
+
+  # set brightness only
+
+  light.brightness = 127
+
+  sleep(1)
 
   # use (0, 0, 0) for white light setting
-  light.set(color = (0, 0, 0), brightness = 100)
+  light.color = (0, 0, 0, 255)
 ```
 
 # More advanced examples
