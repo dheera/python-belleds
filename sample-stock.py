@@ -6,7 +6,6 @@
 from belleds import Belleds
 from time import sleep
 import json
-from pprint import pprint
 import urllib.request
 
 WATCH_SYMBOL = "GOOG"
@@ -22,7 +21,7 @@ def get_quote(ticker_symbol):
     data = json.loads(request.read().decode('utf-8'))
     return data.get('query').get('results').get('quote')
   except:
-    print("foo")
+    print("Could not retrieve quote")
     return None
   
 while True:
