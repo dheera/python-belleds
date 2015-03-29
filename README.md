@@ -29,6 +29,11 @@ for light in lights:
 
   sleep(1)
 
+  # use a hex string if you feel like
+  light.color = '#0080CC'
+
+  sleep(1)
+
   # set brightness only
 
   light.brightness = 127
